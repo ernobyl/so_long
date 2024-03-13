@@ -1,0 +1,14 @@
+# Target labels
+ glfw-populate
+# Source files and their labels
+/root/remote_work/so_long/linux-MLX42/_deps/glfw-subbuild/CMakeFiles/glfw-populate
+/root/remote_work/so_long/linux-MLX42/_deps/glfw-subbuild/CMakeFiles/glfw-populate.rule
+/root/remote_work/so_long/linux-MLX42/_deps/glfw-subbuild/CMakeFiles/glfw-populate-complete.rule
+/root/remote_work/so_long/linux-MLX42/_deps/glfw-subbuild/glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-build.rule
+/root/remote_work/so_long/linux-MLX42/_deps/glfw-subbuild/glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-configure.rule
+/root/remote_work/so_long/linux-MLX42/_deps/glfw-subbuild/glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-download.rule
+/root/remote_work/so_long/linux-MLX42/_deps/glfw-subbuild/glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-install.rule
+/root/remote_work/so_long/linux-MLX42/_deps/glfw-subbuild/glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-mkdir.rule
+/root/remote_work/so_long/linux-MLX42/_deps/glfw-subbuild/glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-patch.rule
+/root/remote_work/so_long/linux-MLX42/_deps/glfw-subbuild/glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-test.rule
+/root/remote_work/so_long/linux-MLX42/_deps/glfw-subbuild/glfw-populate-prefix/src/glfw-populate-stamp/glfw-populate-update.rule
