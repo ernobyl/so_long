@@ -8,7 +8,7 @@
 #include <stdbool.h>
 #include "linux-MLX42/MLX42.h"
 
-#define WIDTH 512
+#define WIDTH 224
 #define HEIGHT 512
 
 static mlx_image_t* image;

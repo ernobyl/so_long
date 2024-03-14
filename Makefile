@@ -1,27 +1,29 @@
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
-LDFLAGS = -Llibft -lft
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S), Linux)
+	CC = gcc
+	CFLAGS = -Wall -Wextra -Werror -Iinclude -pthread -lm
+	LDFLAGS = -ldl -lglfw
 
-SRCS = 
+	SRCS = example.c
 
-OBJS = ${SRCS:.c=.o}
+	OBJS = ${SRCS:.c=.o}
 
-NAME = so_long
+	LIBMLX = linux-MLX42/libmlx42.a
 
-${NAME}: ${OBJS}
-	make -C libft
-	${CC} ${CFLAGS} ${OBJS} ${LDFLAGS} -o ${NAME}
+	NAME = so_long
 
-all: ${NAME}
+	${NAME}: ${OBJS}
+		${CC} ${CFLAGS} ${OBJS} ${LIBMLX} ${LDFLAGS} -o ${NAME}
 
-clean:
-	rm -f ${OBJS}
-	make clean -C libft
+	all: ${NAME}
 
-fclean: clean
-	rm -f ${NAME}
-	make fclean -C libft
+	clean:
+		rm -f ${OBJS}
 
-re: fclean all
+	fclean: clean
+		rm -f ${NAME}
 
-.PHONY: all clean fclean re
+	re: fclean all
+
+	.PHONY: all clean fclean re
+endif
