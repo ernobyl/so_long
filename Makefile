@@ -1,29 +1,45 @@
-UNAME_S := $(shell uname -s)
-ifeq ($(UNAME_S), Linux)
-	CC = gcc
-	CFLAGS = -Wall -Wextra -Werror -Iinclude -pthread -lm
-	LDFLAGS = -ldl -lglfw
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/03/15 10:11:26 by emichels          #+#    #+#              #
+#    Updated: 2024/03/15 12:02:27 by emichels         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-	SRCS = example.c
+NAME	:= so_long
+CC		:= cc
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
+LIBMLX	:= ../MLX42/
 
-	OBJS = ${SRCS:.c=.o}
+HEADERS	:= -I ./include -I $(LIBMLX)/include
+LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/emichels/.brew/opt/glfw/lib/" -pthread -lm
+SRCS	:= example.c
+OBJS	:= ${SRCS:.c=.o}
 
-	LIBMLX = linux-MLX42/libmlx42.a
+# just an example: cc example.c ../MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/emichels/.brew/opt/glfw/lib/"
 
-	NAME = so_long
+all: libmlx $(NAME)
 
-	${NAME}: ${OBJS}
-		${CC} ${CFLAGS} ${OBJS} ${LIBMLX} ${LDFLAGS} -o ${NAME}
+libmlx:
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
-	all: ${NAME}
+%.o: %.c
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
 
-	clean:
-		rm -f ${OBJS}
+$(NAME): $(OBJS)
+	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
-	fclean: clean
-		rm -f ${NAME}
+clean:
+	@rm -rf $(OBJS)
+	@rm -rf $(LIBMLX)/build
 
-	re: fclean all
+fclean: clean
+	@rm -rf $(NAME)
 
-	.PHONY: all clean fclean re
-endif
+re: clean all
+
+.PHONY: all, clean, fclean, re, libmlx
