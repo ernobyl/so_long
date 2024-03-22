@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:22:39 by emichels          #+#    #+#             */
-/*   Updated: 2024/02/08 12:23:34 by emichels         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:03:38 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	*ft_calloc(size_t count, size_t size);
 
 size_t	ft_strlen(const char *s);
+int		ft_strlen_c(char *str, int c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 int		ft_strcmp(const char *s1, const char *s2);
