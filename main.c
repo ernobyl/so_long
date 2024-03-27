@@ -24,7 +24,7 @@ int main(int argc, char **argv)
         if (fd == -1)
             error_msg("Error\nFile open error\n", EXIT_FAILURE, NULL, NULL);
         map_str = read_map(fd);
-        printf("%s\n", map_str);
+        //printf("%s\n", map_str);
         newmap = set_map_limits(map_str);
         is_rectangle(newmap, map_str);
         is_valid_character(map_str);

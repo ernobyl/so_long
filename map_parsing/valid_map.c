@@ -111,34 +111,41 @@ void	is_valid_character(char *map_str)
 		error_msg("Error\nmap elements missing\n", EXIT_FAILURE, map_str, NULL);
 }
 
-static void	traverse_path(char **map_arr, t_map cur, char player)
+static void	traverse_path(char **map_arr, t_map cur)
 {
 	static int	c = 0;
 	static int	e = 0;
 
-	printf("y: %i, x: %i\n", cur.y, cur.x);
-	printf("max y: %i, max x: %i\n", cur.max_y, cur.max_x);
-	printf("current char %c\n", map_arr[cur.y][cur.x]);
-	if ((cur.y < 0 || cur.x < 0 || cur.y >= cur.max_y || cur.x >= cur.max_x)
-		|| (map_arr[cur.y][cur.x] != 'P' && map_arr[cur.y][cur.x] != '0'
-		&& map_arr[cur.y][cur.x] != 'C' && map_arr[cur.y][cur.x] != 'E'))
+	//printf("max y: %i, max x: %i\n", cur.max_y, cur.max_x);
+	//printf("current char %c\n", map_arr[cur.y][cur.x]);
+	if (cur.y < 1 || cur.x < 1 || cur.y >= cur.max_y || cur.x >= cur.max_x
+		|| (map_arr[cur.y][cur.x] == 'x' || map_arr[cur.y][cur.x] == '1'))
 		return;
 	if (map_arr[cur.y][cur.x] == 'C')
 		c++;
 	if (map_arr[cur.y][cur.x] == 'E')
 		e++;
+	map_arr[cur.y][cur.x] = 'x';
+	printf("y: %i, x: %i\n", cur.y, cur.x);
+	int k = 0;
+	while (map_arr[k])
+	{
+		printf("%s\n", map_arr[k]);
+		k++;
+	}
 	//printf("c: %i, e: %i character: %c\n", c, e, map_arr[cur.y][cur.x]);
-	traverse_path(map_arr, (t_map){cur.x - 1, cur.y, cur.max_x, cur.max_y, cur.collect_n}, player);
-	traverse_path(map_arr, (t_map){cur.x + 1, cur.y, cur.max_x, cur.max_y, cur.collect_n}, player);
-	traverse_path(map_arr, (t_map){cur.x, cur.y - 1, cur.max_x, cur.max_y, cur.collect_n}, player);
-	traverse_path(map_arr, (t_map){cur.x, cur.y + 1, cur.max_x, cur.max_y, cur.collect_n}, player);
+	traverse_path(map_arr, (t_map){cur.x - 1, cur.y, cur.max_x, cur.max_y, cur.collect_n});
+	traverse_path(map_arr, (t_map){cur.x + 1, cur.y, cur.max_x, cur.max_y, cur.collect_n});
+	traverse_path(map_arr, (t_map){cur.x, cur.y - 1, cur.max_x, cur.max_y, cur.collect_n});
+	traverse_path(map_arr, (t_map){cur.x, cur.y + 1, cur.max_x, cur.max_y, cur.collect_n});
 	if (c != cur.collect_n || e < 1)
 		error_msg("Error\nno valid path to exit\n", EXIT_FAILURE, NULL, map_arr);
 }
 
 static void	valid_path(char **map_arr, t_map begin)
 {
-	int	found;
+	int		found;
+	char	**map_tmp;
 
 	found = 0;
 	begin.y = 1;
@@ -158,9 +165,9 @@ static void	valid_path(char **map_arr, t_map begin)
 			break;
 		begin.y++;
 	}
-	printf("hello1\n");
-	traverse_path(map_arr, begin, map_arr[begin.y][begin.x]);
-	printf("hello2\n");
+	map_tmp = map_arr;
+	traverse_path(map_tmp, begin);
+	ft_free(map_tmp);
 }
 
 void	is_rectangle(t_map map, char *map_str)
