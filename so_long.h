@@ -26,11 +26,11 @@
 
 typedef struct s_map
 {
-	int	y;
-	int	x;
-	int	max_y;
-	int max_x;
-	int	collect_n;
+	int		y;
+	int		x;
+	int		max_y;
+	int 	max_x;
+	int		collect_n;
 }	t_map;
 
 char	*read_map(int fd);
