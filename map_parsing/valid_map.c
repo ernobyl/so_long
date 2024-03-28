@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:51:12 by emichels          #+#    #+#             */
-/*   Updated: 2024/03/22 16:20:59 by emichels         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:27:37 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,33 +111,65 @@ void	is_valid_character(char *map_str)
 		error_msg("Error\nmap elements missing\n", EXIT_FAILURE, map_str, NULL);
 }
 
-static void	traverse_path(char **map_arr, t_map cur)
+// static int	search_unfilled(char **map_arr, t_map cur)
+// {
+// 	int	i;
+// 	int	k;
+
+// 	k = 1;
+// 	while (k < cur.max_y)
+// 	{
+// 		i = 1;
+// 		while (map_arr[k][i])
+// 		{
+// 			if (map_arr[k][i] == 'x')
+// 			{
+// 				if ((map_arr[k][i + 1] != 'x' && map_arr[k][i + 1] != '1')
+// 					|| (map_arr[k][i - 1] != 'x' && map_arr[k][i - 1] != '1'))
+// 					return (i);
+// 				if ((map_arr[k + 1][i] != 'x' && map_arr[k + 1][i] != '1')
+// 					|| (map_arr[k - 1][i] != 'x' && map_arr[k - 1][i] != '1'))
+// 					return (k);
+// 			}
+// 			i++;
+// 		}
+// 		k++;
+// 	}
+// 	return (0);
+// }
+
+static void	traverse_path(char **map_arr, t_map cur, int y, int x)
 {
 	static int	c = 0;
 	static int	e = 0;
 
 	//printf("max y: %i, max x: %i\n", cur.max_y, cur.max_x);
-	//printf("current char %c\n", map_arr[cur.y][cur.x]);
-	if (cur.y < 1 || cur.x < 1 || cur.y >= cur.max_y || cur.x >= cur.max_x
-		|| (map_arr[cur.y][cur.x] == 'x' || map_arr[cur.y][cur.x] == '1'))
+	printf("current char %c\n", map_arr[y][x]);
+	if (map_arr[y][x] == 'x' || map_arr[y][x] == '1')
 		return;
-	if (map_arr[cur.y][cur.x] == 'C')
+	if (map_arr[y][x] == 'C')
 		c++;
-	if (map_arr[cur.y][cur.x] == 'E')
+	if (map_arr[y][x] == 'E')
 		e++;
-	map_arr[cur.y][cur.x] = 'x';
-	printf("y: %i, x: %i\n", cur.y, cur.x);
+	map_arr[y][x] = 'x';
+	printf("y: %i, x: %i\n", y, x);
 	int k = 0;
 	while (map_arr[k])
 	{
 		printf("%s\n", map_arr[k]);
 		k++;
 	}
-	//printf("c: %i, e: %i character: %c\n", c, e, map_arr[cur.y][cur.x]);
-	traverse_path(map_arr, (t_map){cur.x - 1, cur.y, cur.max_x, cur.max_y, cur.collect_n});
-	traverse_path(map_arr, (t_map){cur.x + 1, cur.y, cur.max_x, cur.max_y, cur.collect_n});
-	traverse_path(map_arr, (t_map){cur.x, cur.y - 1, cur.max_x, cur.max_y, cur.collect_n});
-	traverse_path(map_arr, (t_map){cur.x, cur.y + 1, cur.max_x, cur.max_y, cur.collect_n});
+	printf("c: %i, e: %i\n", c, e);
+	// if (map_arr[y][x] == 'x' && ((map_arr[y][x - 1] == 'x' || map_arr[y][x - 1] == '1')
+	// 	|| (map_arr[y][x + 1] == 'x' || map_arr[y][x + 1] == '1')))
+	// 	x = search_unfilled(map_arr, cur);
+	// else if (map_arr[y][x] == 'x' && ((map_arr[y - 1][x] == 'x' || map_arr[y - 1][x] == '1')
+	// 	|| (map_arr[y + 1][x] == 'x' || map_arr[y + 1][x] == '1')))
+	// 	y = search_unfilled(map_arr, cur);
+	traverse_path(map_arr, cur, y, x - 1);
+	traverse_path(map_arr, cur, y, x + 1);
+	traverse_path(map_arr, cur, y - 1, x);
+	traverse_path(map_arr, cur, y + 1, x);
 	if (c != cur.collect_n || e < 1)
 		error_msg("Error\nno valid path to exit\n", EXIT_FAILURE, NULL, map_arr);
 }
@@ -166,7 +198,7 @@ static void	valid_path(char **map_arr, t_map begin)
 		begin.y++;
 	}
 	map_tmp = map_arr;
-	traverse_path(map_tmp, begin);
+	traverse_path(map_tmp, begin, begin.y, begin.x);
 	ft_free(map_tmp);
 }
 
