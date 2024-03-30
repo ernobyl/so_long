@@ -37,6 +37,7 @@ char	*read_map(int fd);
 t_map	set_map_limits(char *map_str);
 void	is_rectangle(t_map map, char *map_str);
 void	is_valid_character(char *map_str);
+void	traverse_path(char **map_arr, t_map cur, int y, int x);
 
 void	error_msg(char *msg, int code, char *str, char **arr);
 
