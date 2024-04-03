@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/03/22 14:34:04 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/03 12:12:23 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int main(int argc, char **argv)
     {
         fd = open(argv[1], O_RDONLY);
         if (fd == -1)
-            error_msg("Error\nFile open error\n", EXIT_FAILURE, NULL, NULL);
+            error_msg("Error\nFile open error\n", NULL, NULL);
         map_str = read_map(fd);
         printf("%s\n", map_str);
         newmap = set_map_limits(map_str);

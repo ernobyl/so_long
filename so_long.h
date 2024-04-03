@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/03/22 13:38:22 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/03 12:08:02 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	is_rectangle(t_map map, char *map_str);
 void	is_valid_character(char *map_str);
 void	traverse_path(char **map_arr, t_map cur, int y, int x);
 
-void	error_msg(char *msg, int code, char *str, char **arr);
+void	error_msg(char *msg, char *str, char **arr);
 
 
 
