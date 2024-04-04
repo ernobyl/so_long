@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/03 12:08:02 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:23:07 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@
 # include <stdbool.h>
 # include "libft/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
-# include <stdio.h> // for printf testing, remove
+# include <stdio.h> // for printf testing, remove maybe
 
 # define BUFFERSIZE 25
+# define WIDTH 256
+# define HEIGHT 256
 
 typedef struct s_map
 {
