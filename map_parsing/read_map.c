@@ -6,11 +6,31 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:31:16 by emichels          #+#    #+#             */
-/*   Updated: 2024/03/22 14:54:49 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/05 15:26:16 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
+
+void	valid_extension(char *str)
+{
+	int		i;
+	int		k;
+	char	*ext;
+	
+	i = 0;
+	ext = ".ber";
+	while (str[i] && str[i] != '.')
+		i++;
+	k = 0;
+	while (str[i])
+	{
+		if (str[i] != ext[k])
+			error_msg("Error\nwrong map format\n", NULL, NULL);
+		i++;
+		k++;
+	}
+}
 
 char	*read_map(int fd)
 {

@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/04 15:23:07 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/05 15:15:51 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_map
 }	t_map;
 
 char	*read_map(int fd);
+void	valid_extension(char *str);
 t_map	set_map_limits(char *map_str);
 void	is_rectangle(t_map map, char *map_str);
 void	is_valid_character(char *map_str);
