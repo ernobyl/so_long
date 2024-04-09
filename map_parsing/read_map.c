@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:31:16 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/05 15:26:16 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/09 12:06:58 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	valid_extension(char *str)
 	k = 0;
 	while (str[i])
 	{
-		if (str[i] != ext[k])
-			error_msg("Error\nwrong map format\n", NULL, NULL);
+		if (str[i] != ext[k] || k == i)
+			error_msg("Error\ninvalid map format/name\n", NULL, NULL);
 		i++;
 		k++;
 	}
