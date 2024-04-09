@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/05 15:15:51 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:12:51 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@
 # include <stdio.h> // for printf testing, remove maybe
 
 # define BUFFERSIZE 25
-# define WIDTH 256
-# define HEIGHT 256
+# define WIDTH 640
+# define HEIGHT 640
+# define IMGSIZE 12
 
 typedef struct s_map
 {
