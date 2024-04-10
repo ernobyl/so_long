@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/09 17:12:51 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/10 15:45:36 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@
 # include <stdio.h> // for printf testing, remove maybe
 
 # define BUFFERSIZE 25
-# define WIDTH 640
-# define HEIGHT 640
-# define IMGSIZE 12
+# define WIDTH 60
+# define HEIGHT 60
 
 typedef struct s_map
 {
@@ -34,7 +33,33 @@ typedef struct s_map
 	int		max_y;
 	int 	max_x;
 	int		collect_n;
+	int		plr_y;
+	int		plr_x;
+	char	**map_arr;
 }	t_map;
+
+typedef struct s_texture
+{
+	mlx_texture_t	*wall;
+	mlx_texture_t	*floor;
+	mlx_texture_t	*player;
+	mlx_texture_t	*collect;
+	mlx_texture_t	*door_clo;
+	mlx_texture_t	*door_opn;
+}	t_texture;
+
+typedef struct s_image
+{
+	mlx_image_t		*w_img;
+	mlx_image_t		*f_img;
+	mlx_image_t		*p_img;
+	mlx_image_t		*c_img;
+	mlx_image_t		*dc_img;
+	mlx_image_t		*do_img;
+}	t_image;
+
+
+
 
 char	*read_map(int fd);
 void	valid_extension(char *str);
