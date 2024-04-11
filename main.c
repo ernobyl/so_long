@@ -57,6 +57,18 @@ void	count_collectibles(t_map *map)
 	}
 }
 
+void	exit_open(t_map *map)
+{
+	if (map->collect_n == 0)
+	{
+		map->images->dc_img->enabled = false;
+		map->images->do_img->enabled = true;
+		if (map->arr[map->plr_y][map->plr_x] == 'E')
+			mlx_close_window(map->mlx);
+	}
+}
+
+
 void	move_right(t_map *map)
 {
 	if (map->arr[map->plr_y][map->plr_x + 1] == '1')
@@ -65,6 +77,7 @@ void	move_right(t_map *map)
 	map->images->p_img->instances->x += WIDTH;
 	count_steps(map);
 	count_collectibles(map);
+	exit_open(map);
 }
 
 void	move_left(t_map *map)
@@ -75,6 +88,7 @@ void	move_left(t_map *map)
 	map->images->p_img->instances->x -= WIDTH;
 	count_steps(map);
 	count_collectibles(map);
+	exit_open(map);
 }
 
 void	move_down(t_map *map)
@@ -85,6 +99,7 @@ void	move_down(t_map *map)
 	map->images->p_img->instances->y += HEIGHT;
 	count_steps(map);
 	count_collectibles(map);
+	exit_open(map);
 }
 
 void	move_up(t_map *map)
@@ -95,6 +110,7 @@ void	move_up(t_map *map)
 	map->images->p_img->instances->y -= HEIGHT;
 	count_steps(map);
 	count_collectibles(map);
+	exit_open(map);
 }
 
 void	my_keyhook(mlx_key_data_t keydata, void *param)
@@ -121,7 +137,7 @@ void	resize_images(t_map *map)
 	mlx_resize_image(map->images->p_img, WIDTH, HEIGHT);
 	mlx_resize_image(map->images->c_img, WIDTH, HEIGHT);
 	mlx_resize_image(map->images->dc_img, WIDTH, HEIGHT);
-	//mlx_resize_image(map->images->do_img, WIDTH, HEIGHT);
+	mlx_resize_image(map->images->do_img, WIDTH, HEIGHT);
 }
 
 void	load_textures(t_map *map)
@@ -135,13 +151,13 @@ void	load_textures(t_map *map)
 	textures->player = mlx_load_png("./textures/player.png");
 	textures->collect = mlx_load_png("./textures/collect.png");
 	textures->door_clo = mlx_load_png("./textures/door_closed.png");
-	//textures->door_opn = mlx_load_png("./textures/door_open.png");
+	textures->door_opn = mlx_load_png("./textures/door_open.png");
 	map->images->w_img = mlx_texture_to_image(map->mlx, textures->wall);
 	map->images->f_img = mlx_texture_to_image(map->mlx, textures->floor);
 	map->images->p_img = mlx_texture_to_image(map->mlx, textures->player);
 	map->images->c_img = mlx_texture_to_image(map->mlx, textures->collect);
 	map->images->dc_img = mlx_texture_to_image(map->mlx, textures->door_clo);
-	//map->images->do_img = mlx_texture_to_image(map->mlx, textures->door_opn);
+	map->images->do_img = mlx_texture_to_image(map->mlx, textures->door_opn);
 	free(textures);
 }
 
@@ -164,8 +180,8 @@ int32_t	main(int argc, char **argv)
 		is_valid_character(map_str);
 		is_rectangle(map, map_str);
 		map.arr = ft_split(map_str, '\n');
-		mlx_set_setting(MLX_MAXIMIZED, true);
-		map.mlx = mlx_init((map.max_x + 1) * WIDTH, (map.max_y + 1) * HEIGHT, "title", false);
+		mlx_set_setting(MLX_STRETCH_IMAGE, true);
+		map.mlx = mlx_init((map.max_x + 1) * WIDTH, (map.max_y + 1) * HEIGHT, "so long", true);
 		if (!map.mlx)
 			error_msg((char *)mlx_strerror(mlx_errno), NULL, NULL);
 // TEXTURES
@@ -192,22 +208,24 @@ int32_t	main(int argc, char **argv)
 				else
 					map.x++;
 			}
-			else if (map_str[i] == '0' || map_str[i] == 'P')
+			else if (map_str[i] == '0' || map_str[i] == 'P' || map_str[i] == 'C')
 			{
 				if (mlx_image_to_window(map.mlx, map.images->f_img, map.x * WIDTH, map.y * HEIGHT) < 0)
 					error_msg((char *)mlx_strerror(mlx_errno), map_str, NULL);
-				map.x++;
-			}
-			else if (map_str[i] == 'C')
-			{
-				if (mlx_image_to_window(map.mlx, map.images->c_img, map.x * WIDTH, map.y * HEIGHT) < 0)
-					error_msg((char *)mlx_strerror(mlx_errno), map_str, NULL);
+				if (map_str[i] == 'C')
+				{
+					if (mlx_image_to_window(map.mlx, map.images->c_img, map.x * WIDTH, map.y * HEIGHT) < 0)
+						error_msg((char *)mlx_strerror(mlx_errno), map_str, NULL);
+				}
 				map.x++;
 			}
 			else if (map_str[i] == 'E')
 			{
 				if (mlx_image_to_window(map.mlx, map.images->dc_img, map.x * WIDTH, map.y * HEIGHT) < 0)
 					error_msg((char *)mlx_strerror(mlx_errno), map_str, NULL);
+				if (mlx_image_to_window(map.mlx, map.images->do_img, map.x * WIDTH, map.y * HEIGHT) < 0)
+					error_msg((char *)mlx_strerror(mlx_errno), NULL, NULL);
+				map.images->do_img->enabled = false;
 				map.x++;
 			}
 			i++;

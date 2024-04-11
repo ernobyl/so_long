@@ -23,8 +23,8 @@
 # include <stdio.h> // for printf testing, remove maybe
 
 # define BUFFERSIZE 25
-# define WIDTH 60
-# define HEIGHT 60
+# define WIDTH 48
+# define HEIGHT 48
 
 typedef struct s_texture
 {
