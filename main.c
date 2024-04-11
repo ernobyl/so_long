@@ -35,6 +35,28 @@ void	count_steps(t_map *map)
 	ft_putchar_fd('\n', 1);
 }
 
+void	count_collectibles(t_map *map)
+{
+	int	i;
+
+	if (map->arr[map->plr_y][map->plr_x] == 'C')
+	{
+		map->arr[map->plr_y][map->plr_x] = '0';
+		i = 0;
+		while (map->collect_n)
+		{
+			if (map->images->c_img->instances[i].x
+				== map->images->p_img->instances->x
+				&& map->images->c_img->instances[i].y
+				== map->images->p_img->instances->y)
+				break;
+			i++;
+		}
+		map->images->c_img->instances[i].enabled = false;
+		map->collect_n--;
+	}
+}
+
 void	move_right(t_map *map)
 {
 	if (map->arr[map->plr_y][map->plr_x + 1] == '1')
@@ -42,7 +64,7 @@ void	move_right(t_map *map)
 	map->plr_x++;
 	map->images->p_img->instances->x += WIDTH;
 	count_steps(map);
-	//count_collectibles(map);
+	count_collectibles(map);
 }
 
 void	move_left(t_map *map)
@@ -52,7 +74,7 @@ void	move_left(t_map *map)
 	map->plr_x--;
 	map->images->p_img->instances->x -= WIDTH;
 	count_steps(map);
-	//count_collectibles(map);
+	count_collectibles(map);
 }
 
 void	move_down(t_map *map)
@@ -62,7 +84,7 @@ void	move_down(t_map *map)
 	map->plr_y++;
 	map->images->p_img->instances->y += HEIGHT;
 	count_steps(map);
-	//count_collectibles(map);
+	count_collectibles(map);
 }
 
 void	move_up(t_map *map)
@@ -72,7 +94,7 @@ void	move_up(t_map *map)
 	map->plr_y--;
 	map->images->p_img->instances->y -= HEIGHT;
 	count_steps(map);
-	//count_collectibles(map);
+	count_collectibles(map);
 }
 
 void	my_keyhook(mlx_key_data_t keydata, void *param)
