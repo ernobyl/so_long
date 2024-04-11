@@ -26,18 +26,6 @@
 # define WIDTH 60
 # define HEIGHT 60
 
-typedef struct s_map
-{
-	int		y;
-	int		x;
-	int		max_y;
-	int 	max_x;
-	int		collect_n;
-	int		plr_y;
-	int		plr_x;
-	char	**map_arr;
-}	t_map;
-
 typedef struct s_texture
 {
 	mlx_texture_t	*wall;
@@ -58,8 +46,22 @@ typedef struct s_image
 	mlx_image_t		*do_img;
 }	t_image;
 
+typedef struct s_map
+{
+	mlx_t	*mlx;
+	int		y;
+	int		x;
+	int		max_y;
+	int 	max_x;
+	int		collect_n;
+	int		steps;
+	int		plr_y;
+	int		plr_x;
+	char	**arr;
+	t_image	*images;
+}	t_map;
 
-
+void	error_msg(char *msg, char *str, char **arr);
 
 char	*read_map(int fd);
 void	valid_extension(char *str);
@@ -68,7 +70,6 @@ void	is_rectangle(t_map map, char *map_str);
 void	is_valid_character(char *map_str);
 void	traverse_path(char **map_arr, t_map cur, int y, int x);
 
-void	error_msg(char *msg, char *str, char **arr);
 
 
 
