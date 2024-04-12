@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/10 16:31:33 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/12 15:30:43 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,12 +132,18 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 
 void	resize_images(t_map *map)
 {
-	mlx_resize_image(map->images->w_img, WIDTH, HEIGHT);
-	mlx_resize_image(map->images->f_img, WIDTH, HEIGHT);
-	mlx_resize_image(map->images->p_img, WIDTH, HEIGHT);
-	mlx_resize_image(map->images->c_img, WIDTH, HEIGHT);
-	mlx_resize_image(map->images->dc_img, WIDTH, HEIGHT);
-	mlx_resize_image(map->images->do_img, WIDTH, HEIGHT);
+	if (mlx_resize_image(map->images->w_img, WIDTH, HEIGHT) == false)
+		struct_error((char *)mlx_strerror(mlx_errno), map);
+	if (mlx_resize_image(map->images->f_img, WIDTH, HEIGHT) == false)
+		struct_error((char *)mlx_strerror(mlx_errno), map);
+	if (mlx_resize_image(map->images->p_img, WIDTH, HEIGHT) == false)
+		struct_error((char *)mlx_strerror(mlx_errno), map);
+	if (mlx_resize_image(map->images->c_img, WIDTH, HEIGHT) == false)
+		struct_error((char *)mlx_strerror(mlx_errno), map);
+	if (mlx_resize_image(map->images->dc_img, WIDTH, HEIGHT) == false)
+		struct_error((char *)mlx_strerror(mlx_errno), map);
+	if (mlx_resize_image(map->images->do_img, WIDTH, HEIGHT) == false)
+		struct_error((char *)mlx_strerror(mlx_errno), map);
 }
 
 void	load_textures(t_map *map)
@@ -145,19 +151,38 @@ void	load_textures(t_map *map)
 	t_texture	*textures;
 
 	textures = ft_calloc(1, sizeof(t_texture));
+	if (!textures)
+		struct_error("Error\nmalloc failed\n", map);
+	if ((textures->wall = mlx_load_png("./textures/wall.png")) == NULL)
+		texture_error("Error\ntexture load failed\n", map, textures);
+	if ((textures->floor = mlx_load_png("./textures/floor.png")) == NULL)
+		texture_error("Error\ntexture load failed\n", map, textures);
+	if ((textures->player = mlx_load_png("./textures/player.png")) == NULL)
+		texture_error("Error\ntexture load failed\n", map, textures);
+	if ((textures->collect = mlx_load_png("./textures/collect.png")) == NULL)
+		texture_error("Error\ntexture load failed\n", map, textures);
+	if ((textures->door_clo = mlx_load_png("./textures/door_closed.png")) == NULL)
+		texture_error("Error\ntexture load failed\n", map, textures);
+	if ((textures->door_opn = mlx_load_png("./textures/door_open.png")) == NULL)
+		texture_error("Error\ntexture load failed\n", map, textures);
+	load_images(map, textures);
+}
+
+void	load_images(t_map *map, t_texture *textures)
+{
 	map->images = ft_calloc(1, sizeof(t_image));
-	textures->wall = mlx_load_png("./textures/wall.png");
-	textures->floor = mlx_load_png("./textures/floor.png");
-	textures->player = mlx_load_png("./textures/player.png");
-	textures->collect = mlx_load_png("./textures/collect.png");
-	textures->door_clo = mlx_load_png("./textures/door_closed.png");
-	textures->door_opn = mlx_load_png("./textures/door_open.png");
+	if (!map->images)
+	{
+		free(textures);
+		struct_error("Error\nmalloc failed\n", map);
+	}
 	map->images->w_img = mlx_texture_to_image(map->mlx, textures->wall);
 	map->images->f_img = mlx_texture_to_image(map->mlx, textures->floor);
 	map->images->p_img = mlx_texture_to_image(map->mlx, textures->player);
 	map->images->c_img = mlx_texture_to_image(map->mlx, textures->collect);
 	map->images->dc_img = mlx_texture_to_image(map->mlx, textures->door_clo);
 	map->images->do_img = mlx_texture_to_image(map->mlx, textures->door_opn);
+	free_textures(textures);
 	free(textures);
 }
 
@@ -176,7 +201,7 @@ int32_t	main(int argc, char **argv)
 			error_msg("Error\nFile open error\n", NULL, NULL);
 		map_str = read_map(fd);
 		// printf("%s\n", map_str);
-		map = set_map_limits(map_str);
+		set_map_limits(&map, map_str);
 		is_valid_character(map_str);
 		is_rectangle(map, map_str);
 		map.arr = ft_split(map_str, '\n');

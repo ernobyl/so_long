@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/10 15:45:36 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/12 15:28:30 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,14 @@ typedef struct s_map
 }	t_map;
 
 void	error_msg(char *msg, char *str, char **arr);
+void	struct_error(char *msg, t_map *map);
+void	texture_error(char *msg, t_map *map, t_texture *textures);
+void	free_textures(t_texture *textures);
 
+void	load_images(t_map *map, t_texture *textures);
 char	*read_map(int fd);
 void	valid_extension(char *str);
-t_map	set_map_limits(char *map_str);
+void	set_map_limits(t_map *map, char *map_str);
 void	is_rectangle(t_map map, char *map_str);
 void	is_valid_character(char *map_str);
 void	traverse_path(char **map_arr, t_map cur, int y, int x);
