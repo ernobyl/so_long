@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:51:12 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/12 15:29:51 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/15 11:49:20 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,18 @@ void	free_textures(t_texture *textures)
 
 static void	free_images(t_map *map)
 {
-	mlx_delete_image(map->mlx, map->images->w_img);
-	mlx_delete_image(map->mlx, map->images->f_img);
-	mlx_delete_image(map->mlx, map->images->p_img);
-	mlx_delete_image(map->mlx, map->images->c_img);
-	mlx_delete_image(map->mlx, map->images->dc_img);
-	mlx_delete_image(map->mlx, map->images->do_img);
+	if (map->images->w_img)
+		mlx_delete_image(map->mlx, map->images->w_img);
+	if (map->images->f_img)
+		mlx_delete_image(map->mlx, map->images->f_img);
+	if (map->images->p_img)
+		mlx_delete_image(map->mlx, map->images->p_img);
+	if (map->images->c_img)
+		mlx_delete_image(map->mlx, map->images->c_img);
+	if (map->images->dc_img)
+		mlx_delete_image(map->mlx, map->images->dc_img);
+	if (map->images->do_img)
+		mlx_delete_image(map->mlx, map->images->do_img);
 	free(map->images);
 }
 
@@ -69,6 +75,8 @@ void	texture_error(char *msg, t_map *map, t_texture *textures)
 	if (textures->door_opn)
 		mlx_delete_texture(textures->door_opn);
 	free(textures);
+	if (map->images)
+		free_images(map);
 	ft_putstr_fd(msg, 2);
 	exit(EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/12 15:34:55 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/15 11:56:10 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,16 +172,25 @@ void	load_images(t_map *map, t_texture *textures)
 {
 	map->images = ft_calloc(1, sizeof(t_image));
 	if (!map->images)
-	{
-		free(textures);
-		struct_error("Error\nmalloc failed\n", map);
-	}
+		texture_error("Error\nmalloc failed\n", map, textures);
 	map->images->w_img = mlx_texture_to_image(map->mlx, textures->wall);
+	if (map->images->w_img == NULL)
+		texture_error("Error\ntexture to image failed\n", map, textures);
 	map->images->f_img = mlx_texture_to_image(map->mlx, textures->floor);
+	if (map->images->f_img == NULL)
+		texture_error("Error\ntexture to image failed\n", map, textures);
 	map->images->p_img = mlx_texture_to_image(map->mlx, textures->player);
+	if (map->images->p_img == NULL)
+		texture_error("Error\ntexture to image failed\n", map, textures);
 	map->images->c_img = mlx_texture_to_image(map->mlx, textures->collect);
+	if (map->images->c_img == NULL)
+		texture_error("Error\ntexture to image failed\n", map, textures);
 	map->images->dc_img = mlx_texture_to_image(map->mlx, textures->door_clo);
+	if (map->images->dc_img == NULL)
+		texture_error("Error\ntexture to image failed\n", map, textures);
 	map->images->do_img = mlx_texture_to_image(map->mlx, textures->door_opn);
+	if (map->images->do_img == NULL)
+		texture_error("Error\ntexture to image failed\n", map, textures);
 	free_textures(textures);
 	free(textures);
 }
