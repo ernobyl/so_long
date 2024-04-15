@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:31:16 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/09 12:06:58 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/15 15:55:57 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	valid_extension(char *str)
 	while (str[i])
 	{
 		if (str[i] != ext[k] || k == i)
-			error_msg("Error\ninvalid map format/name\n", NULL, NULL);
+			struct_error("Error\ninvalid map format/name\n", NULL);
 		i++;
 		k++;
 	}
@@ -41,7 +41,14 @@ char	*read_map(int fd)
 
 	len = 1;
 	map_str = ft_calloc(1, 1);
+	if (!map_str)
+		struct_error("Error\nmalloc failed\n", NULL);
 	buf = malloc(BUFFERSIZE + 1);
+	if (!buf)
+	{
+		free(map_str);
+		struct_error("Error\nmalloc failed\n", NULL);
+	}
 	while (len > 0)
 	{
 		len = read(fd, buf, BUFFERSIZE);
