@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:51:12 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/15 15:23:15 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/16 11:48:44 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	is_walled(t_map *map)
 {
 	map->y = 0;
-
 	while (map->y <= map->max_y)
 	{
 		map->x = 0;
@@ -25,8 +24,8 @@ static void	is_walled(t_map *map)
 				struct_error("Error\nmap not walled\n", map);
 			if (map->y == map->max_y && map->arr[map->y][map->x] != '1')
 				struct_error("Error\nmap not walled\n", map);
-			if (map->y != 0 && (map->arr[map->y][0] != '1' 
-						|| map->arr[map->y][map->max_x] != '1'))
+			if (map->y != 0 && (map->arr[map->y][0] != '1'
+				|| map->arr[map->y][map->max_x] != '1'))
 				struct_error("Error\nmap not walled\n", map);
 			map->x++;
 		}
@@ -70,7 +69,7 @@ void	traverse_path(char **arr, t_map *cur, int y, int x)
 
 	if (y < 1 || x < 1 || y > cur->max_y || x > cur->max_x
 		|| arr[y][x] == 'x' || arr[y][x] == '1')
-		return;
+		return ;
 	if (arr[y][x] == 'C')
 		c++;
 	if (arr[y][x] == 'E')
@@ -99,12 +98,12 @@ static void	valid_path(t_map *begin)
 			if (begin->arr[begin->y][begin->x] == 'P')
 			{
 				found = 1;
-				break;
+				break ;
 			}
 			begin->x++;
 		}
 		if (found)
-			break;
+			break ;
 		begin->y++;
 	}
 	traverse_path(begin->arr, begin, begin->y, begin->x);
@@ -112,7 +111,7 @@ static void	valid_path(t_map *begin)
 
 void	is_rectangle(t_map *map)
 {
-	if (map->str[ft_strlen(map->str) - 1] == '\n' 
+	if (map->str[ft_strlen(map->str) - 1] == '\n'
 		|| map->str[ft_strlen_c(map->str, '\n') + 1] == '\n'
 		|| map->str[0] == '\n')
 		struct_error("Error\nmap has empty line\n", map);

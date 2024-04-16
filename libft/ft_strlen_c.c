@@ -6,18 +6,18 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:08:38 by emichels          #+#    #+#             */
-/*   Updated: 2024/03/22 16:03:28 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/16 10:43:43 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_strlen_c(char *str, int c)
+int	ft_strlen_c(char *str, int c)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (str && str[i] != (char)c)
-        i++;
-    return (i);
+	i = 0;
+	while (str && str[i] != (char)c)
+		i++;
+	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:41:07 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/15 13:48:48 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:28:07 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	move_right(t_map *map)
 {
 	if (map->arr[map->plr_y][map->plr_x + 1] == '1')
-		return;
+		return ;
 	map->plr_x++;
 	map->images->p_img->instances->x += WIDTH;
 	count_steps(map);
@@ -26,7 +26,7 @@ static void	move_right(t_map *map)
 static void	move_left(t_map *map)
 {
 	if (map->arr[map->plr_y][map->plr_x - 1] == '1')
-		return;
+		return ;
 	map->plr_x--;
 	map->images->p_img->instances->x -= WIDTH;
 	count_steps(map);
@@ -37,7 +37,7 @@ static void	move_left(t_map *map)
 static void	move_down(t_map *map)
 {
 	if (map->arr[map->plr_y + 1][map->plr_x] == '1')
-		return;
+		return ;
 	map->plr_y++;
 	map->images->p_img->instances->y += HEIGHT;
 	count_steps(map);
@@ -48,7 +48,7 @@ static void	move_down(t_map *map)
 static void	move_up(t_map *map)
 {
 	if (map->arr[map->plr_y - 1][map->plr_x] == '1')
-		return;
+		return ;
 	map->plr_y--;
 	map->images->p_img->instances->y -= HEIGHT;
 	count_steps(map);

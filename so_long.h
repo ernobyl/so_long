@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/15 15:44:55 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:28:48 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <stdbool.h>
 # include "libft/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
-# include <stdio.h> // for printf testing, remove maybe
 
 # define BUFFERSIZE 25
 # define WIDTH 48
@@ -48,11 +47,12 @@ typedef struct s_image
 
 typedef struct s_map
 {
+	int		fd;
 	mlx_t	*mlx;
 	int		y;
 	int		x;
 	int		max_y;
-	int 	max_x;
+	int		max_x;
 	int		collect_n;
 	int		steps;
 	int		plr_y;
@@ -79,17 +79,13 @@ void	resize_images(t_map *map);
 void	load_textures(t_map *map);
 void	load_images(t_map *map, t_texture *textures);
 void	display_map(t_map *map);
-void	display_player(t_map *map);
 
 // map handling
-char	*read_map(int fd);
+void	read_map(t_map *map);
 void	valid_extension(char *str);
 void	set_map_limits(t_map *map);
 void	is_rectangle(t_map *map);
 void	is_valid_character(t_map *map);
 void	traverse_path(char **arr, t_map *cur, int y, int x);
-
-
-
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:10:33 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/15 14:14:57 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:27:30 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,23 @@ void	load_textures(t_map *map)
 	textures = ft_calloc(1, sizeof(t_texture));
 	if (!textures)
 		struct_error("Error\nmalloc failed\n", map);
-	if ((textures->wall = mlx_load_png("./textures/wall.png")) == NULL)
+	textures->wall = mlx_load_png("./textures/wall.png");
+	if (textures->wall == NULL)
 		texture_error("Error\ntexture load failed\n", map, textures);
-	if ((textures->floor = mlx_load_png("./textures/floor.png")) == NULL)
+	textures->floor = mlx_load_png("./textures/floor.png");
+	if (textures->floor == NULL)
 		texture_error("Error\ntexture load failed\n", map, textures);
-	if ((textures->player = mlx_load_png("./textures/player.png")) == NULL)
+	textures->player = mlx_load_png("./textures/player.png");
+	if (textures->player == NULL)
 		texture_error("Error\ntexture load failed\n", map, textures);
-	if ((textures->collect = mlx_load_png("./textures/collect.png")) == NULL)
+	textures->collect = mlx_load_png("./textures/collect.png");
+	if (textures->collect == NULL)
 		texture_error("Error\ntexture load failed\n", map, textures);
-	if ((textures->door_clo = mlx_load_png("./textures/door_closed.png")) == NULL)
+	textures->door_clo = mlx_load_png("./textures/door_closed.png");
+	if (textures->door_clo == NULL)
 		texture_error("Error\ntexture load failed\n", map, textures);
-	if ((textures->door_opn = mlx_load_png("./textures/door_open.png")) == NULL)
+	textures->door_opn = mlx_load_png("./textures/door_open.png");
+	if (textures->door_opn == NULL)
 		texture_error("Error\ntexture load failed\n", map, textures);
 	load_images(map, textures);
 }

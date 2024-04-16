@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/15 15:22:54 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/16 10:44:59 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	set_map_limits(t_map *map)
 {
 	int		x;
 	int		y;
-	
+
 	x = 0;
 	while (map->str[x + 1] != '\n')
 		x++;

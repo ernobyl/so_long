@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:31:16 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/15 15:55:57 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:11:44 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	valid_extension(char *str)
 	int		i;
 	int		k;
 	char	*ext;
-	
+
 	i = 0;
 	ext = ".ber";
 	while (str[i] && str[i] != '.')
@@ -32,23 +32,11 @@ void	valid_extension(char *str)
 	}
 }
 
-char	*read_map(int fd)
+static char	*copy_from_file(int fd, char *buf, char *tmp, char *map_str)
 {
-	char	*map_str;
-	char	*buf;
-	int		len;
-	char	*tmp;
+	int	len;
 
 	len = 1;
-	map_str = ft_calloc(1, 1);
-	if (!map_str)
-		struct_error("Error\nmalloc failed\n", NULL);
-	buf = malloc(BUFFERSIZE + 1);
-	if (!buf)
-	{
-		free(map_str);
-		struct_error("Error\nmalloc failed\n", NULL);
-	}
 	while (len > 0)
 	{
 		len = read(fd, buf, BUFFERSIZE);
@@ -66,7 +54,24 @@ char	*read_map(int fd)
 		map_str = ft_strjoin(map_str, buf);
 		free(tmp);
 	}
-	free(buf);
-	close(fd);
 	return (map_str);
+}
+
+void	read_map(t_map *map)
+{
+	char	*buf;
+	char	*tmp;
+
+	tmp = NULL;
+	map->str = ft_calloc(1, 1);
+	if (!map->str)
+		struct_error("Error\nmalloc failed\n", NULL);
+	buf = malloc(BUFFERSIZE + 1);
+	if (!buf)
+	{
+		free(map->str);
+		struct_error("Error\nmalloc failed\n", NULL);
+	}
+	map->str = copy_from_file(map->fd, buf, tmp, map->str);
+	close(map->fd);
 }

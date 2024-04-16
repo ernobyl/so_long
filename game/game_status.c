@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:49:24 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/15 13:55:59 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:17:00 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	count_collectibles(t_map *map)
 				== map->images->p_img->instances->x
 				&& map->images->c_img->instances[i].y
 				== map->images->p_img->instances->y)
-				break;
+				break ;
 			i++;
 		}
 		map->images->c_img->instances[i].enabled = false;
