@@ -6,16 +6,16 @@
 #    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/15 10:11:26 by emichels          #+#    #+#              #
-#    Updated: 2024/04/15 15:44:25 by emichels         ###   ########.fr        #
+#    Updated: 2024/04/17 16:55:17 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= so_long
 CC		:= cc
 CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
-LIBMLX	:= ../MLX42/
+LIBMLX	:= ./MLX42/
 
-HEADERS	:= -I ./include -I $(LIBMLX)/include
+HEADERS	:= -I $(LIBMLX)/include
 LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/emichels/.brew/opt/glfw/lib/" -pthread -lm -Llibft -lft
 SRCS	:= main.c \
 			map_parsing/read_map.c \
@@ -28,28 +28,29 @@ SRCS	:= main.c \
 			game/display_images.c
 OBJS	:= ${SRCS:.c=.o}
 
-# just an example: cc example.c ../MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/emichels/.brew/opt/glfw/lib/"
-
 all: libmlx $(NAME)
 
 libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
 $(NAME): $(OBJS)
-	make -C libft
+	@echo "Compiling so long..."
+	@make -C libft
 	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
 clean:
+	@echo "Cleaning object files..."
 	@rm -rf $(OBJS)
 	@rm -rf $(LIBMLX)/build
-	make clean -C libft
+	@make clean -C libft
 
 fclean: clean
+	@echo "Cleaning everything else..."
 	@rm -rf $(NAME)
-	make fclean -C libft
+	@make fclean -C libft
 
 re: clean all
 

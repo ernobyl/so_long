@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/16 13:28:48 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/17 16:19:47 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 
 # include <unistd.h>
 # include <fcntl.h>
-# include <limits.h>
 # include <stdlib.h>
-# include <stdbool.h>
 # include "libft/libft.h"
-# include "../MLX42/include/MLX42/MLX42.h"
+# include "MLX42/MLX42.h"
 
 # define BUFFERSIZE 25
 # define WIDTH 48
@@ -67,6 +65,7 @@ void	struct_error(char *msg, t_map *map);
 void	texture_error(char *msg, t_map *map, t_texture *textures);
 void	free_textures(t_texture *textures);
 void	free_images(t_map *map);
+void	simple_error(char *msg);
 
 // player movement & status
 void	wasd_keyhook(mlx_key_data_t keydata, void *param);

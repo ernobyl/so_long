@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:31:16 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/16 13:11:44 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/17 14:16:25 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,18 @@ void	valid_extension(char *str)
 
 	i = 0;
 	ext = ".ber";
-	while (str[i] && str[i] != '.')
-		i++;
+	while (str[i++])
+	{
+		if (str[i] == '.')
+			break ;
+		else if (str[i + 1] == '\0')
+			simple_error("Error\ninvalid map format/name\n");
+	}
 	k = 0;
 	while (str[i])
 	{
 		if (str[i] != ext[k] || k == i)
-			struct_error("Error\ninvalid map format/name\n", NULL);
+			simple_error("Error\ninvalid map format/name\n");
 		i++;
 		k++;
 	}

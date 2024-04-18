@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/16 10:44:59 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/17 13:43:34 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	set_map_limits(t_map *map)
 	}
 	map->max_y = y;
 	if (map->max_x < 2 || map->max_y < 2)
-		struct_error("Error\ninvalid map dimensions\n", map);
+		struct_error("Error\nempty line or invalid map dimensions\n", map);
 	map->collect_n = collectible_amount(map->str);
 }
 

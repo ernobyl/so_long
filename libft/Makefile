@@ -1,3 +1,5 @@
+.SILENT:
+
 CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
@@ -40,8 +42,7 @@ SRCS = ft_memset.c \
 		ft_putnbr_fd.c \
 		ft_free.c \
 		ft_atol.c \
-
-BON_S = ft_lstnew_bonus.c \
+		ft_lstnew_bonus.c \
 		ft_lstadd_front_bonus.c \
 		ft_lstsize_bonus.c \
 		ft_lstlast_bonus.c \
@@ -53,28 +54,19 @@ BON_S = ft_lstnew_bonus.c \
 
 OBJS = ${SRCS:.c=.o}
 
-BON_O = ${BON_S:.c=.o}
-
 NAME = libft.a
 
 all:	${NAME}
 
 ${NAME}:	${OBJS}
-	ar -rc ${NAME} ${OBJS}
-
-bonus: ${NAME} ${BON_O}
-
-${BON_O}: ${BON_S}
-	${CC} ${CFLAGS} -c $< -o $@
+	@ar -rc ${NAME} ${OBJS}
 
 clean:
-	rm -f ${OBJS} ${BON_O}
+	@rm -f ${OBJS}
 
 fclean:	clean
-	rm -f ${NAME}
+	@rm -f ${NAME}
 
 re:	fclean all
 
-rebonus: fclean bonus
-
-.PHONY:	all, clean, fclean, re, bonus, rebonus
+.PHONY:	all, clean, fclean, re

@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:23:58 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/16 13:15:16 by emichels         ###   ########.fr       */
+/*   Updated: 2024/04/17 14:14:06 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,12 @@ void	texture_error(char *msg, t_map *map, t_texture *textures)
 	free(textures);
 	if (map->images)
 		free_images(map);
+	ft_putstr_fd(msg, 2);
+	exit(EXIT_FAILURE);
+}
+
+void	simple_error(char *msg)
+{
 	ft_putstr_fd(msg, 2);
 	exit(EXIT_FAILURE);
 }
